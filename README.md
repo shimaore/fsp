@@ -3,7 +3,7 @@ Chainable client and server for FreeSwitch events socket
 Install
 -------
 
-    npm install esl
+    npm install fsp
 
 Overview
 --------
