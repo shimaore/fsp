@@ -1,6 +1,4 @@
-Chainable Client and server for FreeSwitch events socket
-
-Note: this README documents the upcoming 1.0 release, which supports a chainable API.
+Chainable client and server for FreeSwitch events socket
 
 Install
 -------
@@ -10,9 +8,7 @@ Install
 Overview
 --------
 
-This module is modeled after Node.js' own httpServer and client.
-
-It offers two Event Socket connection types, `client()` and `server()`.
+This module offers two FreeSwitch event socket connection types, `client()` and `server()`.
 
 Typically a client would be used to trigger calls asynchronously (for example in a click-to-dial application); this mode of operation is called *inbound* (to FreeSwitch) in the [Event Socket](http://wiki.freeswitch.org/wiki/Event_Socket) FreeSwitch documentation.
 
@@ -23,14 +19,14 @@ You will use one mode or the other depending on what your application needs to d
 Usage
 -----
 
-    var FS = require('fs-q');
+    var FS = require('fsp');
 
 Client Example
 --------------
 
 The following code does the equivalent of `fs_cli -x`: it connects to the Event Socket, runs a single command, then disconnects.
 
-    var FS = require('fs-q');
+    var FS = require('fsp');
 
     var fs_command = function (cmd) {
       var client = FS.client();
@@ -38,7 +34,7 @@ The following code does the equivalent of `fs_cli -x`: it connects to the Event 
       // Manage the client using the chainable API.
       client
       .connect(8021, '127.0.0.1')
-      .on('freeswitch_connect')
+      .on('freeswitch_connect') // wait for indication that FreeSwitch is ready
       .then FS.api(cmd)       // execute the command
       .then FS.exit()         // send the `exit` command to FreeSwitch
       .then FS.disconnect();  // cleanly disconnects from FreeSwitch
@@ -60,8 +56,9 @@ to hand the call over to an Event Socket server on the local host on port 7000.
 
 Typically a server will send commands to FreeSwitch, wait for completion, send a new command, etc.
 
-    var FS = require('fs-q');
+    var FS = require('fsp');
 
+    // The call handler is called every time FreeSwitch sends us a new call.
     var call_handler = function(pv) {
       pv
       .then FS.command('play-file', 'voicemail/vm-hello')
@@ -91,7 +88,7 @@ Typically a server will send commands to FreeSwitch, wait for completion, send a
 
 For some applications you might want to capture channel events instead of using the `command()` / callback pattern:
 
-    var FS = require('fs-q');
+    var FS = require('fsp');
 
     var call_handler = function(pv) {
       var uri = req.body.variable_sip_req_uri;
@@ -106,13 +103,8 @@ For some applications you might want to capture channel events instead of using 
     var server = FS.server(call_handler);
     server.listen(7000);
 
-More Examples
--------------
-
-* See under examples/ in the source for contributed examples.
-
 Alternative
 -----------
 
-The present module should be more convenient if you've already coded for Node.js and are used to the `EventEmitter` pattern.
+The present module should be more convenient if you've already coded for Node.js and are used to using promises or the `EventEmitter` patterns.
 If you are coming from the world of FreeSwitch and are used to the Event Socket Library API, you might want to try [node-esl](https://github.com/englercj/node-esl).

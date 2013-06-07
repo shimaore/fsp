@@ -3,6 +3,7 @@ cs = require 'coffee-script'
 fs = require 'fs'
 
 task 'build', 'build the code', (options) ->
+  try fs.mkdirSync 'lib'
   for f in config.files
     g = f.replace(/\.js$/, '.coffee.md').replace(/lib\//,'src/')
     console.log "Compiling #{g} into #{f}"

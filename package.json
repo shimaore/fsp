@@ -1,21 +1,21 @@
 {
-  "name": "fs-q"
+  "name": "fsp"
 , "version": "0.1.0"
-, "description": "Promise-based Client and Server for FreeSwitch Event System"
-, "keywords": "freeswitch, event, chainable"
+, "description": "FreeSwitch Promises: Promise-based Client and Server for FreeSwitch Event System"
+, "keywords": "freeswitch, event, chainable, promises"
 , "author": { "name": "Stéphane Alnet", "email": "stephane@shimaore.net" }
-, "homepage": "https://github.com/shimaore/fs-q"
+, "homepage": "https://github.com/shimaore/fsp"
 , "repository": {
     "type": "git"
-  , "url": "git://github.com/shimaore/fs-q.git"
+  , "url": "git://github.com/shimaore/fsp.git"
   }
 , "contributors": [
     { "name": "Paweł Pierścionek", "email": "pawel@voiceworks.pl" }
   , { "name": "Akash Deep Verma", "email": "akashdeep@flexydial.com" }
   ]
-, "main": "lib/fs-q.js"
+, "main": "lib/index.js"
 , "files": [
-    "lib/fs-q.js"
+    "lib/index.js"
   , "lib/socket.js"
   , "lib/parser.js"
   , "lib/request.js"
@@ -26,7 +26,7 @@
     "q": "*"
   }
 , "scripts": {
-    "prepublish": "rm lib/*.js && coffee -c -o lib src/fs-q.coffee.md && coffee -c -o lib src/socket.coffee.md && coffee -c -o lib src/parser.coffee.md && coffee -c -o lib src/response.coffee.md"
+    "prepublish": "rm lib/*.js && coffee -c -o lib src/index.coffee.md && coffee -c -o lib src/socket.coffee.md && coffee -c -o lib src/parser.coffee.md && coffee -c -o lib src/response.coffee.md"
   }
 , "publishConfig" : {
     "tag": "development"

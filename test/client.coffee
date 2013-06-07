@@ -1,6 +1,6 @@
 # Client example from the README
 
-FS = require '../lib/fs-q'
+FS = require '../lib/index'
 
 fs_command = (cmd) ->
   client = FS.client()
