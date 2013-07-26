@@ -26,10 +26,10 @@
     "q": "*"
   }
 , "scripts": {
-    "prepublish": "rm lib/*.js && coffee -c -o lib src/index.coffee.md && coffee -c -o lib src/socket.coffee.md && coffee -c -o lib src/parser.coffee.md && coffee -c -o lib src/response.coffee.md"
+    "prepublish": "cake build"
   }
 , "publishConfig" : {
-    "tag": "development"
+    "tag": "latest"
   }
 , "ok": true
 }

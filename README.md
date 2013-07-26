@@ -61,24 +61,23 @@ Typically a server will send commands to FreeSwitch, wait for completion, send a
     // The call handler is called every time FreeSwitch sends us a new call.
     var call_handler = function(pv) {
       pv
-      .then FS.command('play-file', 'voicemail/vm-hello')
+      .then( FS.command('play-file', 'voicemail/vm-hello') )
       .then( function (pv) {
         var foo = pv.body.variable_foo;
         if(foo) {
-          return pv.then FS.command('play-file', 'digits/1');
+          return FS.command('play-file', 'digits/1')(pv);
         }
         return pv;
       })
       // Asynchronous call to a database, a website, etc.
       .then( function(pv) {
-        request('http://127.0.0.1/some/value',function(data){
+        return request('http://127.0.0.1/some/value');
+      })
+      .then( function(data) {
           if(data) {
             // Wait for the command to complete on FreeSwitch.
-            pv
-            .command('play-file',data);
+            FS.command('play-file',data)(pv);
           }
-        });
-        return pv;
       });
 
     };

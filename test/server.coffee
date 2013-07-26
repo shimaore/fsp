@@ -4,13 +4,11 @@
 # or by connecting from a real server using the "socket" application.
 port = 7000
 
-esl = require '../lib/esl'
-esl.debug = true
+FS = require '../lib/index'
 
-server = esl.createCallServer()
-
-server.on 'CONNECT', (req,res) ->
-  util.log 'CONNECT received'
-  res.emit 'force_disconnect'
+server = FS.server (pv) ->
+  util.log 'Call connected'
+  pv
+    .hangup()
 
 server.listen port
