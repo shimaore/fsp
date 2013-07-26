@@ -1,3 +1,5 @@
+NOTE: This module was a prototype for the `esl` module 1.0 version. Please use the `esl` module instead of this one.
+
 Chainable client and server for FreeSwitch events socket
 
 Install
